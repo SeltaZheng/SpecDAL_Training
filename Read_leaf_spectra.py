@@ -7,17 +7,17 @@ from specdal import Collection, Spectrum, filters, readers
 
 
 # Directories:
-dir_in = r'D:\GoogleDrive\OtherRequests\SpecDAL_Training\Sample_Data\fresh_spec'
-spec_out = r'D:\GoogleDrive\OtherRequests\SpecDAL_Training\Sample_Data' + '/fresh_test.csv'
+dir_in = r'Z:\townsenduser-rw\projects\ABoVE\ground_data\2019\dry_data\dry_spec'
+spec_out = r'Z:\townsenduser-rw\projects\ABoVE\ground_data\2019\spec_process' + '/Above_dry_spec_2019.csv'
 
 
 
 # DATA Type
 
-type = 'sed'
+type = 'asd'
 
 # Dry spectra or not
-dry = False
+dry = True
 fresh = not dry
 # Interpolation tag:
 interp = False
@@ -53,10 +53,10 @@ c.plot(legend = False, ylim = (0,1))
 
 spec_data = c.data
 spec_data = spec_data.T
-
+spec_data.insert(loc=0, column='ExtraMeta', value=meta)
 if fresh:
     # Filter the white panel data/ dark current data
-    spec_data.insert(loc=0, column='ExtraMeta', value=meta)
+
     temp = spec_data.iloc[:, 1:].values
     temp = np.sum(temp, axis=1)
     index = (temp >= 100) & (temp < 900)
